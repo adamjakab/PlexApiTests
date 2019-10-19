@@ -7,6 +7,7 @@ class StorageCleanupHandler:
     _movie_container_directory = "/Volumes/Data/Movies"
     _ssh_username = "jackisback"
     _ssh_host = "192.168.1.84"
+    _exclude_folders = ["000_Completed_Torrents"]
     _folder_list = []
 
     def __init__(self, plex):
@@ -15,20 +16,9 @@ class StorageCleanupHandler:
 
 
     def do_it(self):
-        for movie in self._movie_list:
-            media = movie.media[0]
-            part = media.parts[0]
-            file_path = part.file
-            directory = os.path.dirname(file_path)
-            parent_directory = os.path.dirname(directory)
-            if parent_directory != self._movie_container_directory:
-                print("Bad parent directory!")
-                continue
+        for folder in self._folder_list:
+            print("FOLDER: {0}".format(folder))
 
-            print("DELETING: {0}".format(directory))
-            cmd = 'ssh {0}@{1} \'rm -rf "{2}"\''.format(self._ssh_username, self._ssh_host, directory)
-            print("EXECUTING: {0}".format(cmd))
-            os.system(cmd)
 
 
     def _listFolders(self):
@@ -37,8 +27,5 @@ class StorageCleanupHandler:
         # r=root, d=directories, f = files
         for r, d, f in os.walk(self._movie_container_directory):
             for folder in d:
-                folders.append(os.path.join(r, folder))
-
-        print(folders)
-
-
+                if folder not in self._exclude_folders:
+                    self._folder_list.append(os.path.join(r, folder))
