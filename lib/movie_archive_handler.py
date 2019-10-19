@@ -1,4 +1,5 @@
 import os
+import shutil
 
 
 class MovieArchiveHandler:
@@ -29,8 +30,7 @@ class MovieArchiveHandler:
                 continue
 
             print("ARCHIVING: {0}".format(directory))
-
-
+            shutil.move(directory, self._move_target_directory)
 
     def _listMovies(self):
         self._movie_list = self._section.search(collection=[self._delete_collection_name])
