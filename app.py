@@ -13,17 +13,18 @@ baseurl = 'http://192.168.1.84:32400'
 token = 'LuqDSoWTFjxWTxx-4JaE'
 plex = PlexServer(baseurl, token)
 
-SCH = StorageCleanupHandler(plex)
+# SCH = StorageCleanupHandler(plex)
 
 
 # MDH = MovieDeletionHandler(plex)
 # MDH.do_it()
 #
+
 # MAH = MovieArchiveHandler(plex)
 # MAH.do_it()
 
-# LUH = LibraryUpdateHandler(plex)
-# LUH.update_library()
+LUH = LibraryUpdateHandler(plex)
+LUH.update_library()
 
 exit(0)
 
