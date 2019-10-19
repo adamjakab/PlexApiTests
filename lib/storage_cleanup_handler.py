@@ -9,7 +9,7 @@ class StorageCleanupHandler:
     _ssh_username = "jackisback"
     _ssh_host = "192.168.1.84"
     _exclude_folders = ["000_Completed_Torrents"]
-    _movie_extensions = ["mkv", "avi", "mp4"]
+    _movie_extensions = [".mkv", ".avi", ".mp4"]
     _folder_list = []
 
     def __init__(self, plex):
