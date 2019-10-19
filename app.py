@@ -18,9 +18,8 @@ plex = PlexServer(baseurl, token)
 MDH = MovieDeletionHandler(plex)
 MDH.do_it()
 
-
-# MAH = MovieArchiveHandler(plex)
-# MAH.do_it()
+MAH = MovieArchiveHandler(plex)
+MAH.do_it()
 
 LUH = LibraryUpdateHandler(plex)
 LUH.update_library()
