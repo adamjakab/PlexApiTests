@@ -1,0 +1,11 @@
+# GUI related
+.idea/**/*
+
+# Log Files
+**/*.log
+
+# Other excludes
+config.json
+logconfig.ini
+
+Pipfile.lock
