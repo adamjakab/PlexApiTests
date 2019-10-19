@@ -18,9 +18,23 @@ class StorageCleanupHandler:
 
 
     def do_it(self):
+        # Handle Zero movie folders - DELETE
+        print("#" * 80)
+        print("--- NO-MOVIE FOLDERS ---")
         for folder in self._folder_list:
             movie_files = self._getMovieFiles(folder)
-            print("FOLDER({0}): {1}".format(folder, movie_files))
+            if len(movie_files) == 0:
+                print("NO-MOVIE FOLDER({0}): {1}".format(folder, movie_files))
+
+        # Handle Multiple movie folders - DELETE
+        print("#" * 80)
+        print("--- MULTI-MOVIE FOLDERS ---")
+        for folder in self._folder_list:
+            movie_files = self._getMovieFiles(folder)
+            if len(movie_files) > 1:
+                print("MULTI-MOVIE FOLDER({0}): {1}".format(folder, movie_files))
+
+
 
 
     def _getMovieFiles(self, folder):
