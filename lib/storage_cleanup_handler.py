@@ -29,7 +29,7 @@ class StorageCleanupHandler:
         #     for folder in d:
         #         if folder not in self._exclude_folders:
         #             self._folder_list.append(os.path.join(r, folder))
-        for f in glob.glob(self._movie_container_directory + "/", recursive=False):
+        for f in glob.glob(self._movie_container_directory + "/**", recursive=False):
             if os.path.isdir(f):
                 if f not in self._exclude_folders:
                     self._folder_list.append(f)
