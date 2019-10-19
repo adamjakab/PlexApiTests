@@ -1,5 +1,6 @@
 import glob
 import os
+import shutil
 import subprocess
 
 
@@ -24,15 +25,17 @@ class StorageCleanupHandler:
         for folder in self._folder_list:
             movie_files = self._getMovieFiles(folder)
             if len(movie_files) == 0:
-                print("NO-MOVIE FOLDER({0}): {1}".format(folder, movie_files))
+                # print("NO-MOVIE FOLDER({0}): {1}".format(folder, movie_files))
+                print("DELETING: {0}".format(folder))
+                shutil.rmtree(folder, ignore_errors=True)
 
         # Handle Multiple movie folders - DELETE
-        print("#" * 80)
-        print("--- MULTI-MOVIE FOLDERS ---")
-        for folder in self._folder_list:
-            movie_files = self._getMovieFiles(folder)
-            if len(movie_files) > 1:
-                print("MULTI-MOVIE FOLDER({0}): {1}".format(folder, movie_files))
+        # print("#" * 80)
+        # print("--- MULTI-MOVIE FOLDERS ---")
+        # for folder in self._folder_list:
+        #     movie_files = self._getMovieFiles(folder)
+        #     if len(movie_files) > 1:
+        #         print("MULTI-MOVIE FOLDER({0}): {1}".format(folder, movie_files))
 
 
 
