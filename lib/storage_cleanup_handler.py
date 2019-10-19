@@ -32,17 +32,12 @@ class StorageCleanupHandler:
 
 
     def _listFolders(self):
-        cmd = [
-            "ssh",
-            "{0}@{1}".format(self._ssh_username, self._ssh_host),
-            'ls',
-            '-A',
-            '-1',
-            self._movie_container_directory
-        ]
-        result = subprocess.run(cmd, stdout=subprocess.PIPE)
-        res = result.stdout.decode('utf-8')
-        folders = res.split("\n")
+        folders = []
+
+        # r=root, d=directories, f = files
+        for r, d, f in os.walk(self._movie_container_directory):
+            for folder in d:
+                folders.append(os.path.join(r, folder))
 
         print(folders)
 
