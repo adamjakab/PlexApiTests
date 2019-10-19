@@ -15,10 +15,9 @@ plex = PlexServer(baseurl, token)
 
 # SCH = StorageCleanupHandler(plex)
 
+MDH = MovieDeletionHandler(plex)
+MDH.do_it()
 
-# MDH = MovieDeletionHandler(plex)
-# MDH.do_it()
-#
 
 # MAH = MovieArchiveHandler(plex)
 # MAH.do_it()

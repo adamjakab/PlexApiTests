@@ -1,12 +1,11 @@
 import os
+import shutil
 
 
 class MovieDeletionHandler:
     _plex = None
     _delete_collection_name = "Delete"
     _movie_container_directory = "/Volumes/Data/Movies"
-    _ssh_username = "jackisback"
-    _ssh_host = "192.168.1.84"
     _section = None
     _movie_list = []
 
@@ -30,9 +29,7 @@ class MovieDeletionHandler:
                 continue
 
             print("DELETING: {0}".format(directory))
-            cmd = 'ssh {0}@{1} \'rm -rf "{2}"\''.format(self._ssh_username, self._ssh_host, directory)
-            print("EXECUTING: {0}".format(cmd))
-            os.system(cmd)
+            shutil.rmtree(directory, ignore_errors=True)
 
 
     def _listMovies(self):
