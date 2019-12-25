@@ -1,36 +1,49 @@
+#
+#  Author: Adam Jakab
+#  Copyright: Copyright (c) 2019., Adam Jakab
+#  License: See LICENSE.txt
+#  Email: adaja at itu dot dk
+#
+
 import os
 import shutil
 
 
 class MovieArchiveHandler:
     _plex = None
-    _delete_collection_name = "Archive"
-    _movie_container_directory = "/Volumes/Data/Movies"
-    _move_target_directory = "/Volumes/J/EXT-MOVIES/"
-    _section = None
+    _config = None
     _movie_list = []
 
-    def __init__(self, plex):
+    def __init__(self, plex, config):
         self._plex = plex
-        self._section = self._plex.library.section('Movies')
-        self._listMovies()
-        if len(self._movie_list) > 0:
-            print("Movies to be archived: {0}".format(len(self._movie_list)))
+        self._config = config
+        self._classname = self.__class__.__name__
+        print("#" * 80 + ": " + self._classname)
 
+    def run(self):
+        source_section = self._plex.library.section(self._config["source_section_name"])
+        target_section = self._plex.library.section(self._config["target_section_name"])
+        self._list_movies(source_section)
+        if len(self._movie_list) == 0:
+            return
 
-    def do_it(self):
+        source_location_dir = source_section.locations[0]
+        target_location_dir = target_section.locations[0]
+
         for movie in self._movie_list:
             media = movie.media[0]
             part = media.parts[0]
             file_path = part.file
             directory = os.path.dirname(file_path)
             parent_directory = os.path.dirname(directory)
-            if parent_directory != self._movie_container_directory:
-                print("Bad parent directory!")
+            if parent_directory != source_location_dir:
+                print("Bad parent directory: {0}".format(parent_directory))
                 continue
 
             print("ARCHIVING: {0}".format(directory))
-            shutil.move(directory, self._move_target_directory)
+            shutil.move(directory, target_location_dir)
 
-    def _listMovies(self):
-        self._movie_list = self._section.search(collection=[self._delete_collection_name])
+    def _list_movies(self, source_section):
+        target_collection_name = self._config["target_collection_name"]
+        self._movie_list = source_section.search(collection=[target_collection_name])
+        print("Number of movies in collection '{0}': {1}".format(target_collection_name, len(self._movie_list)))

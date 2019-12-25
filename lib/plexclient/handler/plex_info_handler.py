@@ -17,14 +17,11 @@ class PlexInfoHandler:
         print("#" * 80 + ": " + self._classname)
 
     def run(self):
-        sections = self.get_sections()
+        sections = self._plex.library.sections()
         for section in sections:
             self.show_section_info(section)
 
-    def show_section_info(self, section):
+    @staticmethod
+    def show_section_info(section):
         movie_count = len(section.search())
-        print("SECTION: '{0}' has {1} movies".format(section.title, movie_count))
-        print("LOCATION: '{0}'".format(section.locations))
-
-    def get_sections(self):
-        return self._plex.library.sections()
+        print("SECTION: '{0}' has {1} movies in location: {2}".format(section.title, movie_count, section.locations))

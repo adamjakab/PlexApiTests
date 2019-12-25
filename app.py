@@ -37,7 +37,7 @@ for class_name in config["HANDLERS"]:
     handler_config = config["HANDLERS"][class_name]
     if "enabled" in handler_config and handler_config["enabled"] is True:
         module_path = "lib." + handler_config["module_path"]
-        handler_instance = CL.get_instance(module_path, class_name, plex=plex, config=config)
+        handler_instance = CL.get_instance(module_path, class_name, plex=plex, config=handler_config)
         handler_instance.run()
 
 
