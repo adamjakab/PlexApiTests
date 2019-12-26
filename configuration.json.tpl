@@ -8,13 +8,17 @@
       "module_path": "plexclient.handler.plex_info_handler",
       "enabled": true
     },
+    "StrangeFileRemoveHandler": {
+      "module_path": "plexclient.handler.strange_file_remove_handler",
+      "enabled": true,
+      "exclude_folders": ["000_Completed_Torrents"],
+      "allowed_extensions": [".mkv", ".avi", ".mp4", ".jpg", ".jpeg", ".png",".nfo", ".srt", ".png"]
+    },
     "EmptyFolderRemoveHandler": {
       "module_path": "plexclient.handler.empty_folder_remove_handler",
       "enabled": true,
       "exclude_folders": ["000_Completed_Torrents"],
-      "movie_extensions": [".mkv", ".avi", ".mp4"],
-      "image_extensions": [".jpg", ".jpeg", ".png"],
-      "other_extensions": [".nfo", ".srt", ".png"]
+      "movie_extensions": [".mkv", ".avi", ".mp4"]
     },
     "MovieArchiveHandler": {
       "module_path": "plexclient.handler.movie_archive_handler",
